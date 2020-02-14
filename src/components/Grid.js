@@ -8,37 +8,34 @@ function makeGrid(){
       newGrid[i][j] = "false";
     }
   }
-  return newGrid
+  return newGrid;
 }
 
 function placeMarker(e, grid, changeGrid, rules, changeRules){
   let newID = e.target.id
-  if(newID !== "wrongParent"){
-    let newGrid = [...grid];
-    if(newGrid[newID][0] !== "false"){
-      console.error("Already Filled");
-      return;
+  let newGrid = [...grid];
+  if(newGrid[newID][0] !== "false"){
+    alert("Already Filled");
+    return;
+  }
+  for(let i = 0; i < 7; i++){
+    if(newGrid[newID][i] !== "false"){
+      newGrid[newID][i - 1] = rules.player;
+      break;
     }
-    for(let i = 0; i < 7; i++){
-      if(newGrid[newID][i] !== "false"){
-        newGrid[newID][i - 1] = rules.player;
-        break;
-      }
-      if(i === newGrid[newID].length - 1){
-        newGrid[newID][i] = rules.player;
-        break;
-      }
+    if(i === newGrid[newID].length - 1){
+      newGrid[newID][i] = rules.player;
+      break;
     }
-    changeGrid(newGrid);
-    if(rules.player === "playerOne"){
-      checkAll(newGrid, rules, changeRules)
-    }else{
-      checkAll(newGrid, rules, changeRules)
-    }
+  }
+  changeGrid(newGrid);
+  if(rules.player === "playerOne"){
+    checkAll(newGrid, rules, changeRules)
   }else{
-    console.error("it happened")
+    checkAll(newGrid, rules, changeRules)
   }
 }
+
 
 function checkAll(grid, rules, changeRules){
   let finished = false;
@@ -76,11 +73,8 @@ function check(posX, posY, grid, rules, changeRules, finished){
       for(let j = 0; j < 4 && !finished; j++){
         if(getSquare((winArr[i].x * j) + posX, (winArr[i].y * j) + posY, grid) === "playerTwo"){
           amount++
-          console.log("found " + getSquare((winArr[i].x * j) + posX, (winArr[i].y * j) + posY, grid))
           if(amount === 4 && !rules.gameOver){
-            console.error("Blue WINNER");
             changeRules({...rules, gameOver : true, winner : "Two"})
-            console.log(rules)
             return true;
           }
         }else{
@@ -97,11 +91,8 @@ function check(posX, posY, grid, rules, changeRules, finished){
       for(let j = 0; j < 4 && !finished; j++){
         if(getSquare((winArr[i].x * j) + posX, (winArr[i].y * j) + posY, grid) === "playerOne"){
           amount++
-          console.log("found " + getSquare((winArr[i].x * j) + posX, (winArr[i].y * j) + posY, grid))
           if(amount === 4 && !rules.gameOver){
-            console.error("Green WINNER");
             changeRules({...rules, gameOver : true, winner : "One"})
-            console.log(rules)
             return true;
           }
         }else{
@@ -124,9 +115,7 @@ function resetGame(e, grid, changeGrid, rules, changeRules){
 function Grid() {
   const [grid, changeGrid] = useState(makeGrid());
   const [rules, changeRules] = useState({player : "playerOne", gameOver : false, winner : ""});
-
-  console.table(grid)
-  console.error(rules)
+  
   let resetBtn;
   if(rules.gameOver){
     resetBtn = (<button onClick={(e) => resetGame(e, grid, changeGrid, rules, changeRules)}><h1>Reset Game</h1></button>);

@@ -103,6 +103,7 @@ button{
   background-color: white;
   border-radius: 30px;
   transition: .2s ease-out all;
+  margin-top: 20px;
 }
 
 button:hover {
