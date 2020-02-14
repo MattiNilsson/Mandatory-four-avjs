@@ -11,62 +11,151 @@ function makeGrid(){
   return newGrid
 }
 
-function placeMarker(e, grid, changeGrid, player, changePlayer){
+function placeMarker(e, grid, changeGrid, rules, changeRules){
   let newID = e.target.id
   if(newID !== "wrongParent"){
     let newGrid = [...grid];
     if(newGrid[newID][0] !== "false"){
       console.error("Already Filled");
-      return
+      return;
     }
     for(let i = 0; i < 7; i++){
       if(newGrid[newID][i] !== "false"){
-        newGrid[newID][i - 1] = player;
+        newGrid[newID][i - 1] = rules.player;
         break;
       }
       if(i === newGrid[newID].length - 1){
-        newGrid[newID][i] = player;
+        newGrid[newID][i] = rules.player;
         break;
       }
     }
-    console.log(newGrid);
     changeGrid(newGrid);
-    if(player === "playerOne"){
-      changePlayer("playerTwo")
+    if(rules.player === "playerOne"){
+      checkAll(newGrid, rules, changeRules)
     }else{
-      changePlayer("playerOne")
+      checkAll(newGrid, rules, changeRules)
     }
-    console.log(grid);
   }else{
     console.error("it happened")
   }
 }
 
+function checkAll(grid, rules, changeRules){
+  let finished = false;
+  for(let k = 0; k < 6 && !finished; k++){
+    for(let l = 0; l < 7 && !finished; l++){
+      finished = check(l,k, grid, rules, changeRules, finished);
+    }
+  }
+}
+
+function getSquare(x, y, grid) {
+  if (grid[x] && grid[x][y]) {
+      return grid[x][y]
+  }
+  return null;
+}
+
+function check(posX, posY, grid, rules, changeRules, finished){
+//  X - 1 === UNDEFINED
+  let winArr = [
+    {x:1, y:1},
+    {x:-1, y:1},
+    {x:1, y:-1},
+    {x:-1, y:-1},
+    {x:0, y:1},
+    {x:0, y:-1},
+    {x:1, y:0},
+    {x:-1, y:0}
+  ]
+
+  let amount = 0;
+
+  if(!rules.gameOver && rules.player === "playerTwo"){
+    for(let i = 0; i < winArr.length &&  !finished; i++){
+      for(let j = 0; j < 4 && !finished; j++){
+        if(getSquare((winArr[i].x * j) + posX, (winArr[i].y * j) + posY, grid) === "playerTwo"){
+          amount++
+          console.log("found " + getSquare((winArr[i].x * j) + posX, (winArr[i].y * j) + posY, grid))
+          if(amount === 4 && !rules.gameOver){
+            console.error("Blue WINNER");
+            changeRules({...rules, gameOver : true, winner : "Two"})
+            console.log(rules)
+            return true;
+          }
+        }else{
+          if(amount < 4){
+            amount = 0;
+            changeRules({...rules, player : "playerOne"})
+            break;
+          }
+        }
+      }
+    }
+  }else{
+    for(let i = 0; i < winArr.length && !finished; i++){
+      for(let j = 0; j < 4 && !finished; j++){
+        if(getSquare((winArr[i].x * j) + posX, (winArr[i].y * j) + posY, grid) === "playerOne"){
+          amount++
+          console.log("found " + getSquare((winArr[i].x * j) + posX, (winArr[i].y * j) + posY, grid))
+          if(amount === 4 && !rules.gameOver){
+            console.error("Green WINNER");
+            changeRules({...rules, gameOver : true, winner : "One"})
+            console.log(rules)
+            return true;
+          }
+        }else{
+          if(amount < 4){
+            amount = 0;
+            changeRules({...rules, player : "playerTwo"})
+            break;
+          }
+        }
+      }
+    }
+  }
+}
+
+function resetGame(e, grid, changeGrid, rules, changeRules){
+  changeRules({player : "playerOne", gameOver : false, winner : ""})
+  changeGrid(makeGrid());
+}
+
 function Grid() {
   const [grid, changeGrid] = useState(makeGrid());
-  const [player, changePlayer] = useState("playerOne")
+  const [rules, changeRules] = useState({player : "playerOne", gameOver : false, winner : ""});
 
   console.table(grid)
+  console.error(rules)
+  let resetBtn;
+  if(rules.gameOver){
+    resetBtn = (<button onClick={(e) => resetGame(e, grid, changeGrid, rules, changeRules)}><h1>Reset Game</h1></button>);
+  }else{
+    resetBtn = null;
+  }
 
   return (
-    <div className="grid" id="wrongParent">
-      {grid.map((column, colId) => {
-        return (
-        <div 
-          key={colId} 
-          onClick={(e) => {placeMarker(e, grid, changeGrid, player, changePlayer)}} 
-          className="column" 
-          id={colId}
-          >{column.map((tile, id) => {
-            return (
-              <div 
-                key={id} 
-                className={"tile " + grid[colId][id]}
-              ></div>
-            )
-        })}</div>
-        )
-      })}
+    <div className="flex">
+      <div className={"grid " + rules.winner} id="wrongParent">
+        {grid.map((column, colId) => {
+          return (
+          <div 
+            key={colId} 
+            onClick={(e) => {if(!rules.gameOver){placeMarker(e, grid, changeGrid, rules, changeRules)}}} 
+            className="column" 
+            id={colId}
+            >{column.map((tile, id) => {
+              return (
+                <div 
+                  key={id} 
+                  className={"tile " + grid[colId][id]}
+                ></div>
+              )
+          })}</div>
+          )
+        })}
+      </div>
+      {resetBtn}
     </div>
   );
 }
