@@ -115,7 +115,7 @@ function resetGame(e, grid, changeGrid, rules, changeRules){
 function Grid() {
   const [grid, changeGrid] = useState(makeGrid());
   const [rules, changeRules] = useState({player : "playerOne", gameOver : false, winner : ""});
-  
+  console.error(rules);
   let resetBtn;
   if(rules.gameOver){
     resetBtn = (<button onClick={(e) => resetGame(e, grid, changeGrid, rules, changeRules)}><h1>Reset Game</h1></button>);
@@ -123,8 +123,20 @@ function Grid() {
     resetBtn = null;
   }
 
+  let playerTurn;
+  if(rules.player === "playerOne" && rules.gameOver === false){
+    playerTurn = (<h1 className="playerOneTurn">Player One's Turn!</h1>)
+  }else if(rules.player === "playerTwo" && rules.gameOver === false){
+    playerTurn = (<h1 className="playerTwoTurn">Player Two's Turn!</h1>)
+  }else if(rules.winner === "One"){
+    playerTurn = (<h1 className="playerOneTurn">PLaYER ONE WINS!!!</h1>)
+  }else if(rules.winner === "Two"){
+    playerTurn = (<h1 className="playerTwoTurn">PLaYER TWO WINS!!!</h1>)
+  }
+
   return (
     <div className="flex">
+      {playerTurn}
       <div className={"grid " + rules.winner} id="wrongParent">
         {grid.map((column, colId) => {
           return (

@@ -103,7 +103,7 @@ button{
   background-color: white;
   border-radius: 30px;
   transition: .2s ease-out all;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 button:hover {
@@ -112,6 +112,22 @@ button:hover {
 
 button > h1{
   margin-top: -4px;
+}
+
+h1{
+  margin-bottom: 0;
+}
+
+.playerOneTurn{
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: rgb(42, 219, 193);
+}
+
+.playerTwoTurn{
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: rgb(39, 150, 224);
 }
 
 .playerOne{
