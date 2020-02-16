@@ -137,8 +137,24 @@ h1{
 box-shadow: inset 4px 4px 5px 0px rgba(0,0,0,0.18);
 }
 
+.winnerOne{
+  border: 2px solid rgb(18, 146, 125);
+  background-color: rgb(180, 252, 240);
+  -webkit-box-shadow: inset 4px 4px 5px 0px rgba(0,0,0,0.18);
+-moz-box-shadow: inset 4px 4px 5px 0px rgba(0,0,0,0.18);
+box-shadow: inset 4px 4px 5px 0px rgba(0,0,0,0.18);
+}
+
 .playerTwo{
   background-color: rgb(150, 196, 226);
+  -webkit-box-shadow: inset 4px 4px 5px 0px rgba(0,0,0,0.18);
+-moz-box-shadow: inset 4px 4px 5px 0px rgba(0,0,0,0.18);
+box-shadow: inset 4px 4px 5px 0px rgba(0,0,0,0.18);
+}
+
+.winnerTwo{
+  border: 2px solid rgb(52, 151, 190);
+  background-color: rgb(200, 232, 253);
   -webkit-box-shadow: inset 4px 4px 5px 0px rgba(0,0,0,0.18);
 -moz-box-shadow: inset 4px 4px 5px 0px rgba(0,0,0,0.18);
 box-shadow: inset 4px 4px 5px 0px rgba(0,0,0,0.18);
