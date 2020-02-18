@@ -62,13 +62,13 @@
 .One{
   display:flex;
   border-radius: 40px;
-  border: 10px solid rgb(155, 229, 217);
+  border: 10px solid rgb(134, 196, 204);
 }
 
 .Two{
   display:flex;
   border-radius: 40px;
-  border: 10px solid rgb(176, 217, 245);
+  border: 10px solid rgb(226, 150, 150);
 }
 
 .column{
@@ -121,40 +121,40 @@ h1{
 .playerOneTurn{
   margin-top: 0;
   margin-bottom: 10px;
-  color: rgb(42, 219, 193);
+  color: rgb(134, 196, 204);
 }
 
 .playerTwoTurn{
   margin-top: 0;
   margin-bottom: 10px;
-  color: rgb(39, 150, 224);
+  color: rgb(226, 150, 150);
 }
 
 .playerOne{
-  background-color: rgb(134, 204, 192);
+  background-color: rgb(134, 196, 204);
   -webkit-box-shadow: inset 4px 4px 5px 0px rgba(0,0,0,0.18);
 -moz-box-shadow: inset 4px 4px 5px 0px rgba(0,0,0,0.18);
 box-shadow: inset 4px 4px 5px 0px rgba(0,0,0,0.18);
 }
 
 .winnerOne{
-  border: 2px solid rgb(18, 146, 125);
-  background-color: rgb(180, 252, 240);
+  border: 2px solid rgb(18, 120, 146);
+  background-color: rgb(183, 239, 247);
   -webkit-box-shadow: inset 4px 4px 5px 0px rgba(0,0,0,0.18);
 -moz-box-shadow: inset 4px 4px 5px 0px rgba(0,0,0,0.18);
 box-shadow: inset 4px 4px 5px 0px rgba(0,0,0,0.18);
 }
 
 .playerTwo{
-  background-color: rgb(150, 196, 226);
+  background-color: rgb(226, 150, 150);
   -webkit-box-shadow: inset 4px 4px 5px 0px rgba(0,0,0,0.18);
 -moz-box-shadow: inset 4px 4px 5px 0px rgba(0,0,0,0.18);
 box-shadow: inset 4px 4px 5px 0px rgba(0,0,0,0.18);
 }
 
 .winnerTwo{
-  border: 2px solid rgb(52, 151, 190);
-  background-color: rgb(200, 232, 253);
+  border: 2px solid rgb(190, 52, 52);
+  background-color: rgb(253, 232, 232);
   -webkit-box-shadow: inset 4px 4px 5px 0px rgba(0,0,0,0.18);
 -moz-box-shadow: inset 4px 4px 5px 0px rgba(0,0,0,0.18);
 box-shadow: inset 4px 4px 5px 0px rgba(0,0,0,0.18);
